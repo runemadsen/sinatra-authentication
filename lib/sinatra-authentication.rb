@@ -18,7 +18,7 @@ module Sinatra
 
         @users = User.all
         if @users != []
-          haml get_view_as_string("index.haml"), :layout => use_layout?
+          erb get_view_as_string("index.erb"), :layout => use_layout?
         else
           redirect '/signup'
         end
@@ -28,7 +28,7 @@ module Sinatra
         login_required
 
         @user = User.get(:id => params[:id])
-        haml get_view_as_string("show.haml"), :layout => use_layout?
+        erb get_view_as_string("show.erb"), :layout => use_layout?
       end
 
       #convenience for ajax but maybe entirely stupid and unnecesary
@@ -44,7 +44,7 @@ module Sinatra
         if session[:user]
           redirect '/'
         else
-          haml get_view_as_string("login.haml"), :layout => use_layout?
+          erb get_view_as_string("login.erb"), :layout => use_layout?
         end
       end
 
@@ -83,7 +83,7 @@ module Sinatra
         if session[:user]
           redirect '/'
         else
-          haml get_view_as_string("signup.haml"), :layout => use_layout?
+          erb get_view_as_string("signup.erb"), :layout => use_layout?
         end
       end
 
@@ -107,7 +107,7 @@ module Sinatra
         login_required
         redirect "/users" unless current_user.admin? || current_user.id.to_s == params[:id]
         @user = User.get(:id => params[:id])
-        haml get_view_as_string("edit.haml"), :layout => use_layout?
+        erb get_view_as_string("edit.erb"), :layout => use_layout?
       end
 
       app.post '/users/:id/edit' do
