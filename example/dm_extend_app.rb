@@ -21,6 +21,6 @@ set :environment, 'development'
 set :public, 'public'
 set :views,  'views'
 
-get '/' do
-  haml "= render_login_logout", :layout => :layout
+get '/login' do
+  erb :login
 end
